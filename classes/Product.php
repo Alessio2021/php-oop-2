@@ -1,7 +1,11 @@
 <?php
 
-class Product
+require_once __DIR__ . "/../traits/Fidelity.php";
+
+
+class Product 
 {
+    use Fidelity;
     protected $name;
     protected $price;
     protected $model;
@@ -9,8 +13,8 @@ class Product
     public function __construct($name, $price, $model)
     {
         $this->name = $name;        
-        $this->name = $price;        
-        $this->name = $model;        
+        $this->price = $price;        
+        $this->model = $model;        
     }
 
     /**
@@ -36,8 +40,12 @@ class Product
     /**
      * Get the value of price
      */ 
-    public function getPrice()
+    public function getPrice($level, $discount)
     {
+        if ($level) {
+            $this->price = $this->price * ((100 - $discount) / 100);
+        } 
+
         return $this->price;
     }
 
